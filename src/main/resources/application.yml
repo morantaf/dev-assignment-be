@@ -26,4 +26,4 @@ management:
         include: 'info,health,metrics'
 flight:
   passenger:
-    limit: 200
+    limit: 150
