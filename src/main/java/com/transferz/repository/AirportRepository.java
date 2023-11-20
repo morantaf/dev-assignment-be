@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AirportRepository extends JpaRepository<Airport, String> {
+public interface AirportRepository extends JpaRepository<Airport, Long> {
 
     @Query("SELECT a FROM Airport a WHERE " +
             "(:name IS NULL OR a.name LIKE %:name%) AND " +

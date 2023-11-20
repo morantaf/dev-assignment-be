@@ -11,9 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"name", "flight_id"}))
 @NoArgsConstructor
-@AllArgsConstructor
 public class Passenger
 {
 
@@ -25,7 +24,12 @@ public class Passenger
 	@Column(nullable = false, length = 1024)
 	private String name;
 
-	@Column(nullable = false, length = 20)
-	private String flightCode;
+	@ManyToOne
+	private Flight flight;
+
+	public Passenger(String name, Flight flight) {
+		this.name = name;
+		this.flight = flight;
+	}
 
 }
