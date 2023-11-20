@@ -3,12 +3,18 @@ server:
   shutdown: graceful
 spring:
   datasource:
-    url:
-    username:
-    password:
-    driver-class-name:
+    url: jdbc:postgresql://localhost:5432/airport_db
+    username: admin
+    password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
   jpa:
-    show-sql:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format-sql: true
+    show-sql: false
   jackson:
     serialization:
       write-dates-as-timestamps: false
