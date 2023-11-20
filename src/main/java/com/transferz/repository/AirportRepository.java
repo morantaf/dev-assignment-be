@@ -14,4 +14,8 @@ public interface AirportRepository extends JpaRepository<Airport, String> {
             "(:name IS NULL OR a.name LIKE %:name%) AND " +
             "(:code IS NULL OR a.code LIKE %:code%)")
     Page<Airport> findByNameAndCode(String name, String code, Pageable pageable);
+
+    boolean existsByName(String name);
+
+    boolean existsByCode(String name);
 }
