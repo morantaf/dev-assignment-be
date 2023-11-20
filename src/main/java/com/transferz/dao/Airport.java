@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table
 @NoArgsConstructor
-@AllArgsConstructor
 public class Airport
 {
 
@@ -29,5 +28,11 @@ public class Airport
 
 	@Column(nullable = false, length = 60)
 	private String country;
+
+	public Airport(String name, String code, String country) {
+		this.name = name;
+		this.code = code;
+		this.country = country;
+	}
 	
 }
