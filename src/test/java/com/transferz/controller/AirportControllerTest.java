@@ -43,14 +43,17 @@ public class AirportControllerTest {
     @Disabled
     @Test
     public void testGetAirports() throws Exception {
+        //given
         String name = "Test Airport";
         String code = "TA";
         String country = "NL";
         Page<Airport> airportPage = new PageImpl<>(Collections.singletonList(new Airport(name, code, country)));
         Pageable pageable = mock(Pageable.class);
 
+        //when
         when(airportService.getAirports(name, code, pageable)).thenReturn(airportPage);
 
+        //then
         mockMvc.perform(get("/airports")
                         .param("name", name)
                         .param("code", code))
@@ -60,17 +63,29 @@ public class AirportControllerTest {
     }
 
     @Test
-    public void testAddAirport() throws Exception {
+    public void testAddAirport_Success() throws Exception {
+        //given
         Airport airport = new Airport("New Airport", "NA", "NL");
 
+        //when
         when(airportService.addAirport(any(AirportDTO.class))).thenReturn(airport);
 
+        //then
         mockMvc.perform(post("/airports")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"New Airport\", \"code\":\"NA\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("New Airport"))
                 .andExpect(jsonPath("$.code").value("NA"));
+    }
+
+    @Test
+    public void testAddAirport_FailsWithIncompleteRequest() throws Exception {
+        //when
+        mockMvc.perform(post("/airports")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"New Airport\"}"))
+                .andExpect(status().isBadRequest());
     }
 
 }
