@@ -2,6 +2,7 @@ server:
   port: 8080
   shutdown: graceful
 spring:
+  profiles: default
   datasource:
     url: jdbc:postgresql://localhost:5432/airport_db
     username: admin
@@ -27,3 +28,22 @@ management:
 flight:
   passenger:
     limit: 150
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format-sql: true
+    show-sql: true
+  h2:
+    console:
+      enabled: true
